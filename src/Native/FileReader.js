@@ -1,19 +1,8 @@
-Elm.Native = Elm.Native || {};
-Elm.Native.FileReader = {};
 
-Elm.Native.FileReader.make = function(localRuntime){
-
-    localRuntime.Native = localRuntime.Native || {};
-    localRuntime.Native.FileReader = localRuntime.Native.FileReader || {};
-
-    if (localRuntime.Native.FileReader.values){
-        return localRuntime.Native.FileReader.values;
-    }
-
-    var Task = Elm.Native.Task.make(localRuntime);
+var _KeisukeTagami$file_reader$Native_FileReader = function() {
 
     function useReader(method, fileObjectToRead) {
-        return Task.asyncFunction(function(callback){
+        return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
 
             /*
              * Test for existence of FileRader using
@@ -25,16 +14,22 @@ Elm.Native.FileReader.make = function(localRuntime){
             var reader = new FileReader();
 
             reader.onload = function(evt) {
-                return callback(Task.succeed(evt.target.result))
+                return callback(
+                    _elm_lang$core$Native_Scheduler.succeed(
+                        _elm_lang$core$Native_Utils.Tuple2( fileObjectToRead.lastModifiedDate.toLocaleString(),
+                                                            evt.target.result
+                                                          )
+                    )
+                );
             };
 
             reader.onerror = function() {
-                return callback(Task.fail({ctor : 'ReadFail'}));
+                return callback(_elm_lang$core$Native_Scheduler.fail({ctor : 'ReadFail'}));
             };
 
             // Error if not passed an objectToRead or if it is not a Blob
             if (!fileObjectToRead || !(fileObjectToRead instanceof Blob)) {
-                return callback(Task.fail({ctor : 'NoValidBlob'}));
+                return callback(_elm_lang$core$Native_Scheduler.fail({ctor : 'NoValidBlob'}));
             }
 
             return reader[method](fileObjectToRead);
@@ -61,4 +56,4 @@ Elm.Native.FileReader.make = function(localRuntime){
         readAsArrayBuffer : readAsArrayBuffer,
         readAsDataUrl: readAsDataUrl
     };
-};
+}();

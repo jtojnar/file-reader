@@ -1,4 +1,4 @@
-module FileReader
+port module FileReader exposing
     ( FileRef
     , FileContentArrayBuffer
     , FileContentDataUrl
@@ -10,7 +10,7 @@ module FileReader
     , toString
     , parseSelectedFiles
     , parseDroppedFiles
-    ) where
+    )
 
 {-| Elm bindings for the main [HTML5 FileReader APIs](https://developer.mozilla.org/en/docs/Web/API/FileReader):
 
@@ -70,7 +70,7 @@ represented as a String to Elm.
 
     readAsTextFile ref
 -}
-readAsTextFile : FileRef -> Task Error String
+readAsTextFile : FileRef -> Task Error (String, String)
 readAsTextFile fileRef =
     if isTextFile fileRef
         then Native.FileReader.readAsTextFile fileRef
@@ -184,6 +184,7 @@ The Files event has a structure
 It also inherits other properties that we need to ignore during parsing.
 fileParser achieves this by using Json.maybe and then filtering out Nothing(s)
 -}
+
 
 fileParser : String -> Decoder (List NativeFile)
 fileParser field =

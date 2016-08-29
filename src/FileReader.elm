@@ -1,4 +1,4 @@
-port module FileReader exposing
+module FileReader exposing
     ( FileRef
     , FileContentArrayBuffer
     , FileContentDataUrl

@@ -1,5 +1,5 @@
 
-var _KeisukeTagami$file_reader$Native_FileReader = function() {
+var _jtojnar$file_reader$Native_FileReader = function() {
 
     function useReader(method, fileObjectToRead) {
         return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {

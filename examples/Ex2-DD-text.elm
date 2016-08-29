@@ -27,7 +27,7 @@ init =
 
 type Msg
     = DnD DragDrop.Msg
-    | FileDataSucceed String
+    | FileDataSucceed (String, String)
     | FileDataFail FileReader.Error
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -46,7 +46,7 @@ update msg model =
             , Cmd.none
             )
 
-        FileDataSucceed str ->
+        FileDataSucceed (date, str) ->
             ( { model | contents = str :: model.contents }
             , Cmd.none
             )

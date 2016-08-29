@@ -29,7 +29,7 @@ type Msg
     | FilesSelect Files                         -- Update model, but without file read
     | FilesSelectUpload Files                   -- Update model and read files
     | Submit String                             -- Submit button in form
-    | FileDataSucceed String                    -- data returned when success
+    | FileDataSucceed (String, String)          -- data returned when success
     | FileDataFail FileReader.Error             -- data returned when failed
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -59,7 +59,7 @@ update msg model =
                 List.map (readTextFile << .blob) model.selected
             )
 
-        FileDataSucceed str ->
+        FileDataSucceed (date, str) ->
             ( { model | contents = str :: model.contents }
             , Cmd.none )
 
